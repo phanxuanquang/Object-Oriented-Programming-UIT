@@ -76,7 +76,7 @@ Date Date::getNextDate()
 
 	if ((nextDate.month == 4 || nextDate.month == 6 || nextDate.month == 9 || nextDate.month == 11))
 	{
-		if (day >= 30)
+		if (day > 30)
 		{
 			day = 1;
 			month++;
@@ -84,7 +84,14 @@ Date Date::getNextDate()
 	}
 
 	if (isLeapYear(nextDate.year) && nextDate.month == 2) {
-		if (nextDate.day >= 29)
+		if (nextDate.day > 29)
+		{
+			nextDate.day = 1;
+			nextDate.month++;
+		}
+	}
+	if (!isLeapYear(nextDate.year) && nextDate.month == 2) {
+		if (nextDate.day > 28)
 		{
 			nextDate.day = 1;
 			nextDate.month++;
