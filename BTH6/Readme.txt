@@ -21,12 +21,10 @@ Viết hàm tính tích của một ma trận và một vector. Tích của hai 
 10. Hãy định nghĩa lớp MYINT có hoạt động như kiểu dữ liệu 'int' nhưng phép cộng hai MYINT hoạt động như phép trừ hai int và ngược lại.
 
 11. Cho đoạn chương trình sau:
-#include <iostream.h>
-main(){
-	cout << "Hello, world.\n";
-}
+	#include <iostream.h>
+	main(){	cout << "Hello, world.\n"; }
 Hãy sửa lại chương trình trên, nhưng không sửa chữa gì hàm main, để chương trình có thể tạo ra kết xuất:
-Entering the Hello program saying...
-Hello, world.
-Then exiting...
+	Entering the Hello program saying...
+	Hello, world.
+	Then exiting...
 
