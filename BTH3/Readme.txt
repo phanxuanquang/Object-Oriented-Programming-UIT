@@ -1,5 +1,5 @@
-1. Viết chương trình nhập vào một phân số, rút gọn phân số và xuất kết quả.
-2. Viết chương trình nhập vào hai phân số, tìm phân số lớn nhất và xuất kết quả.
-3. Viết chương trình nhập vào hai phân số. Tính tổng, hiệu, tích, thương giữa chúng và xuất kết quả.
-4. Viết chương trình nhập vào một ngày. Tìm ngày kế tiếp và xuất kết quả.
-5. Viết chương trình nhập họ tên, điểm toán, điểm văn của một học sinh. Tính điểm trung bình và xuất kết quả.
+1. Thiết lập lớp biểu diễn khái niệm điểm trong mặt phẳng với hai thành phần dữ liệu hoành độ và tung độ. Viết các phương thức thiết lập, các hàm thành phần cho phép thay đổi nội dung của điểm, lấy hoành độ, tung độ, tịnh tiến, nhập, xuất một điểm.
+
+2. Viết định nghĩa lớp TamGiac để biểu diễn khái niệm tam giác trong mặt phẳng với các phương thức thiết lập, huỷ bỏ (nếu có). Các hàm thành phần nhập, xuất, tịnh tiến, lấy trọng tâm tam giác.
+
+3. Viết định nghĩa lớp DaGiac để biểu diễn khái niệm đa giác trong mặt phẳng với các hàm thành phần tương tự như lớp TamGiac.
