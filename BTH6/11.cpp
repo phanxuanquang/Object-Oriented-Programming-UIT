@@ -1,22 +1,25 @@
 #include <iostream>
 using namespace std;
-class toancuc
+
+class general
 {
 public:
-	toancuc();
+	general();
 
-	~toancuc();
+	~general();
 };
-toancuc A;
+
+general A;
 int main() {
 	cout << "Hello, world.\n";
 	return 0;
 }
-toancuc::toancuc()
+
+general::general()
 {
 	cout << "Entering the Hello program saying...\n";
 }
-toancuc::~toancuc()
+general::~general()
 {
 	cout << "Then exiting...";
 }
