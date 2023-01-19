@@ -4,93 +4,95 @@ using namespace std;
 
 class Candidate {
     string name, ID;
-    int date_Birth, month_Birth, year_Birth;
-    double math_score, literature_score, english_score;
+    int birthDay, birthMonth, birthYear;
+    double mathScore, literatureScore, englishScore;
+
 public:
     void import();
     void print();
-    void check(double&);
-    double score_total();
+    void checkValidScore(double&);
+    bool isScoreTotalAbove15() {
+        if (mathScore + literatureScore + englishScore > 15)
+            return true;
+        return false;
+    }
 };
 
-void list_import(Candidate[], int);
-void check_score(Candidate[], int);
+void listImport(Candidate[], int);
+void printMatchedCandidates(Candidate[], int);
 
 int main()
 {
-    int amount;
+    int quantity;
     cout << "So thi sinh la ";
-    cin >> amount;
+    cin >> quantity;
     system("cls");
-    Candidate* list = new Candidate[amount];
-    list_import(list, amount);
-    check_score(list, amount);
+
+    Candidate* list = new Candidate[quantity];
+    listImport(list, quantity);
+
+    printMatchedCandidates(list, quantity);
+
     system("pause");
 }
 
 void Candidate::import() {
-    int temp = getchar();
+    cin.ignore();
     cout << "Ho va ten thi sinh: ";
     getline(cin, name);
     cout << " Ma thi sinh: ";
     getline(cin, ID);
     cout << " Ngay sinh: ";
-    cin >> date_Birth;
+    cin >> birthDay;
     cout << " Thang sinh: ";
-    cin >> month_Birth;
+    cin >> birthMonth;
     cout << " Nam sinh: ";
-    cin >> year_Birth;
+    cin >> birthYear;
+
     cout << " Diem toan: ";
-    cin >> math_score;
-    check(math_score);
+    cin >> mathScore;
+    checkValidScore(mathScore);
     cout << " Diem van: ";
-    cin >> literature_score;
-    check(literature_score);
+    cin >> literatureScore;
+    checkValidScore(literatureScore);
     cout << " Diem tieng Anh: ";
-    cin >> english_score;
-    check(english_score);
+    cin >> englishScore;
+    checkValidScore(englishScore);
+
     system("cls");
 }
 void Candidate::print() {
-    cout << " Ho va ten thi sinh: " << name << endl;
-    cout << " Ma thi sinh: " << ID << endl;
-    cout << " Ngay sinh: " << date_Birth << endl;
-    cout << " Thang sinh: " << month_Birth << endl;
-    cout << " Nam sinh: " << year_Birth << endl;
-    cout << " Diem toan: " << math_score << endl;
-    cout << " Diem van: " << literature_score << endl;
-    cout << " Diem tieng Anh: " << english_score << endl;
+    cout << "  Ho va ten thi sinh: " << name << endl;
+    cout << "  Ngay sinh: " << birthDay << "/" << birthMonth << "/" << birthYear << endl;
+    cout << "  Diem toan: " << mathScore << endl;
+    cout << "  Diem van: " << literatureScore << endl;
+    cout << "  Diem tieng Anh: " << englishScore << endl;
     cout << endl;
 }
-void Candidate::check(double& x) {
+void Candidate::checkValidScore(double& x) {
     while (x > 10 || x < 0) {
         cout << "Diem so khong hop le. Gia tri diem moi la: ";
         cin >> x;
     }
 }
-double Candidate::score_total() {
-    return math_score + literature_score + english_score;
-}
 
-void list_import(Candidate arr[], int size) {
+void listImport(Candidate arr[], int size) {
     for (int i = 0; i < size; i++) {
         cout << "Thi sinh thu " << i + 1 << ": " << endl << " ";
         arr[i].import();
     }
 }
-void check_score(Candidate arr[], int size) {
-    int count = 0;
+void printMatchedCandidates(Candidate arr[], int size) {
+    bool hasCandidateAbove15 = false;
+
+    cout << "Cac thi sinh co tong diem lon hon 15: " << endl;
     for (int i = 0; i < size; i++)
-        if (arr[i].score_total() > 15)
-            count++;
-    if (count == 0)
-        cout << "Khong co thi sinh nao co tong diem lon hon 15" << endl;
-    else {
-        cout << "Thong tin cac thi sinh co tong diem lon hon 15 la: " << endl << endl;
-        for (int i = 0; i < size; i++)
-            if (arr[i].score_total() > 15) {
-                cout << "Thi sinh thu " << i + 1 << ": " << endl;
-                arr[i].print();
-            }
-    }
+        if (arr[i].isScoreTotalAbove15()) {
+            hasCandidateAbove15 = true;
+            cout << "  Thi sinh thu " << i + 1 << ": " << endl;
+            arr[i].print();
+        }
+
+    if (hasCandidateAbove15 == false)
+        cout << "Khong co trong danh sach" << endl;
 }
