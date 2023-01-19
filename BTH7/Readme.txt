@@ -1,5 +1,5 @@
 Giảng viên yêu cầu làm được bài cuối cùng kèm theo tiếng động vật kêu thật là đạt điểm tuyệt đối cho cả bài thực hành 7 nên không có bài làm cho những bài tập còn lại.
-======================================================
+____________________________
 1. Giả sử Công ty có hai loại nhân viên: Nhân viên văn phòng và Nhân viên sản xuất. Viết chương trình quản lý và tính lương cho từng nhân viên của công ty:
 Mỗi nhân viên cần quản lý các thông tin sau: Họ tên, ngày sinh, lương. Công ty cần tính lương cho nhân viên như sau:
 -	Đối với nhân viên sản xuất: 
