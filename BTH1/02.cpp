@@ -1,36 +1,43 @@
 #include <iostream>
 using namespace std;
-class fraction {
+
+class Fraction {
 	int numerator, denominator;
+
 public:
-	int get_numerator() {
+	int getNumerator() {
 		return this->numerator;
 	}
-	int get_denominator() {
+	int getDenominator() {
 		return this->denominator;
 	}
-	void import();
-	void print();
-	fraction operator-(fraction);
-	~fraction() {
-	}
+
+	void input();
+	void output();
+
+	Fraction operator-(Fraction);
 };
-void compare(fraction, fraction);
+
+void compare(Fraction, Fraction);
+
 void main()
 {
-	fraction *a = new fraction;
-	cout << "\nNhap phan so thu nhat: " << endl;
-	a->import();
-	fraction* b = new fraction;
-	cout << "\nNhap phan so thu hai: " << endl;
-	b->import();
+	Fraction a, b;
+
+	cout << "\nPhan so thu nhat: " << endl;
+	a.input();
+
+	cout << "\nPhan so thu hai: " << endl;
+	b.input();
+
 	cout << endl;
-	compare(*a, *b);
+	compare(a, b);
 	cout << endl;
-	delete a, b;
+
 	system("pause");
 }
-void fraction::import() {
+
+void Fraction::input() {
 	cout << " Tu so la: ";
 	cin >> numerator;
 	cout << " Mau so la: ";
@@ -40,28 +47,31 @@ void fraction::import() {
 		cin >> denominator;
 	}
 }
-void fraction::print() {
+void Fraction::output() {
 	if (numerator % denominator == 0)
 		cout << numerator / denominator;
 	else cout << numerator << "/" << denominator << " ";
 }
-fraction fraction::operator-(fraction x) {
-	fraction temp;
-	temp.numerator = numerator * x.denominator - x.numerator * denominator;
-	temp.denominator = x.denominator * denominator;
-	return temp;
+Fraction Fraction::operator-(Fraction x) {
+	Fraction result;
+	result.numerator = numerator * x.denominator - x.numerator * denominator;
+	result.denominator = x.denominator * denominator;
+	return result;
 }
-void compare(fraction x, fraction y) {
-	fraction temp = x - y;
-	int temp1 = temp.get_numerator() * temp.get_denominator();
-	if (temp1 > 0) {
+
+void compare(Fraction x, Fraction y) {
+	Fraction subtractResult = x - y;
+	int temp = subtractResult.getNumerator() * subtractResult.getDenominator();
+
+	if (temp > 0) {
 		cout << "Phan so lon nhat la ";
-		x.print();
+		x.output();
 	}
-	else if (temp1 < 0) {
+	else if (temp < 0) {
 		cout << "Phan so lon nhat la ";
-		y.print();
+		y.output();
 	}
 	else cout << "Hai phan so bang nhau";
+
 	cout << endl;
 }
