@@ -1,35 +1,41 @@
 #include <iostream>
 #include<string>
 using namespace std;
-class student {
-public:
+
+class Student {
     string name;
-    double math, literature;
-    void import();
-    double averageScore();
+    double mathGrade, literatureGrade;
+
+public:
+    void input();
+    double getAverageGrade();
 };
-void main()
+
+int main()
 {
-    student hocSinh;
+    Student student;
     cout << "Nhap thong tin hoc sinh: " << endl;
-    hocSinh.import();
-    cout << "Diem trung binh la " << hocSinh.averageScore() << endl;
+    student.input();
+
+    cout << "Diem trung binh: " << student.getAverageGrade() << endl;
     system("pause");
 }
-void student::import() {
-    cout << " Ho va ten hoc sinh: ";
-    int temp = getchar();
+
+void Student::input() {
+    cout << " Ho va ten: ";
+    cin.ignore();
     getline(cin, name);
     cout << " Diem toan: ";
-    cin >> math;
+    cin >> mathGrade;
     cout << " Diem van: ";
-    cin >> literature;
-    while (math < 0 || math > 10 || literature > 10 || literature < 0)
+    cin >> literatureGrade;
+    while (mathGrade < 0 || mathGrade > 10 || literatureGrade > 10 || literatureGrade < 0)
     {
+        system("cls");
         cout << endl << "Diem so khong hop le, hay nhap lai thong tin hoc sinh." << endl;
-        import();
+        input();
     }
 }
-double student::averageScore() {
-    return (math + literature) / 2;
+double Student::getAverageGrade() {
+    return (mathGrade + literatureGrade) / 2;
 }
