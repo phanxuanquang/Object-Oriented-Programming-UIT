@@ -4,41 +4,53 @@ using namespace std;
 class PhanSo {
 	int numerator, denominator;
 public:
-	int get_numerator();
+	int getNumerator();
 	void set(int, int);
-	void import();
+
+	void input();
+	void output();
+
 	void simplify();
-	void print();
+
 	PhanSo operator+(PhanSo);
 	PhanSo operator-(PhanSo);
 	PhanSo operator*(PhanSo);
 	PhanSo operator/(PhanSo);
 };
 
-void total(PhanSo, PhanSo);
-void subtract(PhanSo, PhanSo);
-void multiply(PhanSo, PhanSo);
-void divide(PhanSo, PhanSo);
+void getTotalOf(PhanSo, PhanSo);
+void getTubtractionOf(PhanSo, PhanSo);
+void getMultiplicationOf(PhanSo, PhanSo);
+void getDivisionOf(PhanSo, PhanSo);
+
 void print(PhanSo&);
 
 int main()
 {
 	PhanSo a, b;
 	cout << "Nhap phan so thu nhat" << endl;
-	a.import();
+	a.input();
 	cout << "Nhap phan so thu hai" << endl;
-	b.import();
-	total(a, b);
-	subtract(a, b);
-	multiply(a, b);
-	divide(a, b);
+	b.input();
+
+	getTotalOf(a, b);
+	getTubtractionOf(a, b);
+	getMultiplicationOf(a, b);
+	getDivisionOf(a, b);
+
+	cout << endl;
 	system("pause");
 }
 
-int PhanSo::get_numerator() {
+int PhanSo::getNumerator() {
 	return numerator;
 }
-void PhanSo::import() {
+void PhanSo::set(int tu, int mau) {
+	this->numerator = tu;
+	this->denominator = mau;
+}
+
+void PhanSo::input() {
 	cout << " Tu so la: ";
 	cin >> numerator;
 	cout << " Mau so la: ";
@@ -49,11 +61,12 @@ void PhanSo::import() {
 	}
 	system("cls");
 }
-void PhanSo::print() {
+void PhanSo::output() {
 	if (numerator % denominator == 0)
 		cout << numerator / denominator;
 	else cout << numerator << "/" << denominator << " ";
 }
+
 void PhanSo::simplify() {
 	for (int i = numerator; i >= 1; i--)
 		if (numerator % i == 0 && denominator % i == 0) {
@@ -66,62 +79,57 @@ void PhanSo::simplify() {
 			break;
 		}
 }
-void PhanSo::set(int tu, int mau) {
-	this->numerator = tu;
-	this->denominator = mau;
-}
 
 PhanSo PhanSo::operator+(PhanSo x) {
 	PhanSo temp;
 	temp.numerator = numerator * x.denominator + x.numerator * denominator;
 	temp.denominator = x.denominator * denominator;
+	temp.simplify();
 	return temp;
 }
 PhanSo PhanSo::operator-(PhanSo x) {
 	PhanSo temp;
 	temp.numerator = numerator * x.denominator - x.numerator * denominator;
 	temp.denominator = x.denominator * denominator;
+	temp.simplify();
 	return temp;
 }
 PhanSo PhanSo::operator*(PhanSo x) {
 	PhanSo temp;
 	temp.numerator = numerator * x.numerator;
 	temp.denominator = x.denominator * denominator;
+	temp.simplify();
 	return temp;
 }
 PhanSo PhanSo::operator/(PhanSo x) {
 	PhanSo temp;
 	temp.numerator = numerator * x.denominator;
 	temp.denominator = x.numerator * denominator;
+	temp.simplify();
 	return temp;
 }
 
-void total(PhanSo x, PhanSo y) {
-	cout << " Tong cua hai phan so la ";
-	PhanSo sum = x + y;
-	print(sum);
+void getTotalOf(PhanSo x, PhanSo y) {
+	cout << "Tong cua hai phan so la ";
+	PhanSo tot = x + y;
+	tot.output();
 }
-void subtract(PhanSo x, PhanSo y) {
-	cout << " Hieu cua hai phan so la ";
+void getTubtractionOf(PhanSo x, PhanSo y) {
+	cout << "\nHieu cua hai phan so la ";
 	PhanSo sub = x - y;
-	print(sub);
+	sub.output();
 }
-void multiply(PhanSo x, PhanSo y) {
-	cout << " Tich cua hai phan so la ";
+void getMultiplicationOf(PhanSo x, PhanSo y) {
+	cout << "\nTich cua hai phan so la ";
 	PhanSo mul = x * y;
-	print(mul);
+	mul.output();
 }
-void divide(PhanSo x, PhanSo y) {
-	cout << " Thuong cua hai phan so la ";
-	if (y.get_numerator() == 0)
+void getDivisionOf(PhanSo x, PhanSo y) {
+	cout << "\nThuong cua hai phan so la ";
+	if (y.getNumerator() == 0)
 		cout << "khong ton tai" << endl;
 	else {
 		PhanSo div = x / y;
-		print(div);
+		div.output();
 	}
-}
-void print(PhanSo& x) {
-	x.simplify();
-	x.print();
-	cout << endl;
 }
