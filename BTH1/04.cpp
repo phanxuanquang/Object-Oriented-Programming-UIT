@@ -17,7 +17,7 @@ public:
 
 	bool isLeapYear();
 	bool isValidDate();
-	
+
 	Date getNextDate();
 };
 
@@ -58,7 +58,7 @@ bool Date::isLeapYear()
 	return false;
 }
 bool Date::isValidDate() {
-	if (year < 0)
+	if (year < 1 || day < 1)
 		return false;
 	if (month < 1 || month > 12)
 		return false;
