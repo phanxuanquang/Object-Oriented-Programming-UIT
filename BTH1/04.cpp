@@ -21,8 +21,7 @@ public:
 	Date getNextDate();
 };
 
-int main()
-{
+int main(){
 	Date date;
 	cout << "Nhap ngay thang nam: " << endl;
 	date.input();
@@ -51,8 +50,7 @@ void Date::output() {
 	cout << day << "/" << month << "/" << year << endl;
 }
 
-bool Date::isLeapYear()
-{
+bool Date::isLeapYear(){
 	if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0))
 		return true;
 	return false;
