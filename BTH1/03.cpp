@@ -1,50 +1,58 @@
 #include <iostream>
 using namespace std;
-class fraction {
+
+class Fraction {
 	int numerator, denominator;
+
 public:
-	fraction() {
-	}
-	int get_numerator() {
+	Fraction() {}
+
+	int getNumerator() {
 		return this->numerator;
 	}
-	int get_denominator() {
+	int getDenominator() {
 		return this->denominator;
 	}
-	void import();
-	void print();
+
+	void input();
+	void output();
+
 	void simplify();
-	fraction operator+(fraction);
-	fraction operator-(fraction);
-	fraction operator*(fraction);
-	fraction operator/(fraction);
-	~fraction() {
-	}
+	
+	Fraction operator+(Fraction);
+	Fraction operator-(Fraction);
+	Fraction operator*(Fraction);
+	Fraction operator/(Fraction);
 };
-void total(fraction x, fraction y);
-void subtract(fraction x, fraction y);
-void multiply(fraction x, fraction y);
-void divide(fraction x, fraction y);
-void main()
+
+void getTotalOf(Fraction x, Fraction y);
+void getSubtractionOf(Fraction x, Fraction y);
+void getMultiplicationOf(Fraction x, Fraction y);
+void getDivisionOf(Fraction x, Fraction y);
+
+int main()
 {
-	fraction* a = new fraction;
+	Fraction a, b;
 	cout << "Nhap phan so thu nhat:" << endl;
-	a->import();
-	fraction *b = new fraction;
+	a.input();
 	cout << "Nhap phan so thu hai:" << endl;
-	b->import();
+	b.input();
+
+	system("cls");
+
 	cout << "Tong cua hai phan so la ";
-	total(*a, *b);
+	getTotalOf(a, b);
 	cout << "Hieu cua hai phan so la ";
-	subtract(*a, *b);
+	getSubtractionOf(a, b);
 	cout << "Tich cua hai phan so la ";
-	multiply(*a, *b);
+	getMultiplicationOf(a, b);
 	cout << "Thuong cua hai phan so la ";
-	divide(*a, *b);
-	delete a, b;
+	getDivisionOf(a, b);
+
 	system("pause");
 }
-void fraction::import() {
+
+void Fraction::input() {
 	cout << " Tu so la: ";
 	cin >> numerator;
 	cout << " Mau so la: ";
@@ -54,13 +62,13 @@ void fraction::import() {
 		cin >> denominator;
 	}
 }
-void fraction::print() {
+void Fraction::output() {
 	if (numerator % denominator == 0)
 		cout << numerator / denominator;
 	else cout << numerator << "/" << denominator << " ";
 	cout << endl;
 }
-void fraction::simplify() {
+void Fraction::simplify() {
 	for (int i = abs(numerator); i >= 1; i--)
 		if (numerator % i == 0 && denominator % i == 0) {
 			numerator /= i;
@@ -72,55 +80,56 @@ void fraction::simplify() {
 			break;
 		}
 }
-fraction fraction::operator+(fraction x) {
-	fraction temp;
+Fraction Fraction::operator+(Fraction x) {
+	Fraction temp;
 	temp.numerator = numerator * x.denominator + x.numerator * denominator;
 	temp.denominator = x.denominator * denominator;
 	temp.simplify();
 	return temp;
 }
-fraction fraction::operator-(fraction x) {
-	fraction temp;
+Fraction Fraction::operator-(Fraction x) {
+	Fraction temp;
 	temp.numerator = numerator * x.denominator - x.numerator * denominator;
 	temp.denominator = x.denominator * denominator;
 	temp.simplify();
 	return temp;
 }
-fraction fraction::operator*(fraction x) {
-	fraction temp;
+Fraction Fraction::operator*(Fraction x) {
+	Fraction temp;
 	temp.numerator = numerator * x.numerator;
 	temp.denominator = x.denominator * denominator;
 	temp.simplify();
 	return temp;
 }
-fraction fraction::operator/(fraction x) {
-	fraction temp;
+Fraction Fraction::operator/(Fraction x) {
+	Fraction temp;
 	temp.numerator = numerator * x.denominator;
 	temp.denominator = denominator * x.numerator;
 	temp.simplify();
 	return temp;
 }
-void total(fraction x, fraction y) {
-	fraction temp;
+
+void getTotalOf(Fraction x, Fraction y) {
+	Fraction temp;
 	temp = x + y;
-	temp.print();
+	temp.output();
 }
-void subtract(fraction x, fraction y) {
-	fraction temp;
+void getSubtractionOf(Fraction x, Fraction y) {
+	Fraction temp;
 	temp = x - y;
-	temp.print();
+	temp.output();
 }
-void multiply(fraction x, fraction y) {
-	fraction temp;
+void getMultiplicationOf(Fraction x, Fraction y) {
+	Fraction temp;
 	temp = x * y;
-	temp.print();
+	temp.output();
 }
-void divide(fraction x, fraction y) {
-	if (y.get_numerator() == 0)
+void getDivisionOf(Fraction x, Fraction y) {
+	if (y.getNumerator() == 0)
 		cout << "khong ton tai" << endl;
 	else {
-		fraction temp;
+		Fraction temp;
 		temp = x / y;
-		temp.print();
+		temp.output();
 	}
 }
