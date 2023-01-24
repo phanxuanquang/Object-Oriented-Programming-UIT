@@ -1,141 +1,150 @@
 #include <iostream>
 using namespace std;
 
-class point {
+class Point {
     double x, y;
+
 public:
     void set(double, double);
-    double get_x();
-    double get_y();
-    void point_import();
-    void point_export();
-    point operator+(point);
+
+    double getX();
+    double getY();
+
+    void input();
+    void output();
+
+    Point operator+(Point);
 };
 
 class DaGiac {
-    int amount;
-    point a[];
+    int vertexSize;
+    Point vertices[];
+
 public:
-    void DaGiac_import();
-    void DaGiac_export();
-    void move_vector();
-    point centroid();
+    void input();
+    void ouput();
+
+    void moveFollowVector(Point);
+    Point getCentroidPoint();
 };
 
-void call_menu();
-void choice(DaGiac&);
+void printMenu();
+void choose(DaGiac&);
+
+void movePolygon(DaGiac&);
+void printCenteroidPointOf(DaGiac);
 
 int main() {
-    DaGiac x;
-    call_menu();
-    choice(x);
+    DaGiac polygon;
+    polygon.input();
+    system("cls");
+    choose(polygon);
     system("pause");
 }
 
-void call_menu() {
+void printMenu() {
     cout << "_______________________________" << endl;
+    cout << "0. Thoat" << endl;
     cout << "1. Nhap da giac" << endl;
     cout << "2. Xuat da giac" << endl;
     cout << "3. Tinh tien da giac" << endl;
     cout << "4. Lay trong tam da giac" << endl;
     cout << "_______________________________" << endl;
 }
-void choice(DaGiac& a) {
-    int x;
+void choose(DaGiac& polygon) {
+    printMenu();
+    int choice;
     cout << "Nhap lua chon: ";
-    cin >> x;
-    switch (x) {
+    cin >> choice;
+    system("cls");
+    switch (choice) {
+    case 0:
+        return;
     case 1:
-        system("cls");
-        a.DaGiac_import();
-        call_menu();
-        choice(a);
+        polygon.input();
         break;
     case 2:
-        system("cls");
-        a.DaGiac_export();
-        call_menu();
-        choice(a);
+        polygon.ouput();
         break;
     case 3:
-        system("cls");
-        a.move_vector();
-        call_menu();
-        choice(a);
+        movePolygon(polygon);
         break;
     case 4:
-        system("cls");
-        cout << "Toa do trong tam da giac la ";
-        a.centroid().point_export();
-        cout << endl;
-        call_menu();
-        choice(a);
+        printCenteroidPointOf(polygon);
         break;
     default:
-        system("cls");
         cout << "Lua chon khong hop le" << endl;
-        call_menu();
-        choice(a);
         break;
     }
+    choose(polygon);
 }
 
-double point::get_x() {
+double Point::getX() {
     return x;
 }
-double point::get_y() {
+double Point::getY() {
     return y;
 }
-void point::point_import() {
+void Point::input() {
     cout << "\n Hoanh do: ";
     cin >> x;
     cout << " Tung do: ";
     cin >> y;
 }
-void point::point_export() {
+void Point::output() {
     cout << "(" << x << "," << y << ") ";
 }
-void point::set(double x, double y) {
+void Point::set(double x, double y) {
     this->x = x;
     this->y = y;
 }
-point point::operator+(point move) {
-    point temp;
+Point Point::operator+(Point move) {
+    Point temp;
     temp.x = x + move.x;
     temp.y = y + move.y;
     return temp;
 }
 
-void DaGiac::DaGiac_import() {
+void DaGiac::input() {
     cout << "So luong dinh cua da giac la ";
-    cin >> amount;
+    cin >> vertexSize;
     system("cls");
     cout << "Nhap toa do dinh cua da giac: " << endl;
-    for (int i = 0; i < amount; i++) {
+    for (int i = 0; i < vertexSize; i++) {
         cout << "Nhap dinh thu " << i + 1 << ": ";
-        a[i].point_import();
+        vertices[i].input();
     }
 }
-void DaGiac::DaGiac_export() {
-    cout << "Toa do cac dinh cua da giac la: " << endl;
-    for (int i = 0; i < amount; i++) 
-        a[i].point_export();
+void DaGiac::ouput() {
+    cout << "Toa do cac dinh cua da giac la: ";
+    for (int i = 0; i < vertexSize; i++)
+        vertices[i].output();
     cout << endl;
 }
-void DaGiac::move_vector() {
-    point vector_move;
-    cout << "Nhap toa do vector tinh tien:";
-    vector_move.point_import();
-    system("cls");
-    for (int i = 0; i < amount; i++)
-        a[i] = a[i] + vector_move;
-    cout << "Da tinh tien da giac theo vector (" << vector_move.get_x() << "," << vector_move.get_y() << ")" << endl;
+void DaGiac::moveFollowVector(Point vector) {
+    for (int i = 0; i < vertexSize; i++)
+        vertices[i] = vertices[i] + vector;
 }
-point DaGiac::centroid() {
-    point temp;
+Point DaGiac::getCentroidPoint() {
+    Point temp;
     temp.set(0, 0);
-    for (int i = 0; i < amount; i++)
-        temp = temp + a[i];
-    temp.set(temp.get_x() / amount, temp.get_y() / amount);
+    for (int i = 0; i < vertexSize; i++)
+        temp = temp + vertices[i];
+    temp.set(temp.getX() / vertexSize, temp.getY() / vertexSize);
     return temp;
+}
+
+void movePolygon(DaGiac& polygon) {
+    Point vectorForMoving;
+    cout << "Nhap toa do vector tinh tien:";
+    vectorForMoving.input();
+    system("cls");
+    polygon.moveFollowVector(vectorForMoving);
+    cout << "Da tinh tien da giac theo vector (" << vectorForMoving.getX() << "," << vectorForMoving.getY() << ")." << endl;
+    polygon.ouput();
+}
+void printCenteroidPointOf(DaGiac polygon) {
+    cout << "Toa do trong tam da giac la ";
+    polygon.getCentroidPoint().output();
+    cout << endl;
 }
