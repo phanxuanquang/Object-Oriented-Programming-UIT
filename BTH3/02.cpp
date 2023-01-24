@@ -1,138 +1,169 @@
 #include <iostream>
 using namespace std;
 
-class point {
+class Point {
     double x, y;
 public:
     void set(double, double);
-    double get_x();
-    double get_y();
-    void point_import();
-    void point_export();
-    point operator+(point);
-};
-class TamGiac {
-    point a, b, c;
-public:
-    void TamGiac_import();
-    void TamGiac_export();
-    void move_vector();
-    point centroid();
+    double getX();
+    double getY();
+
+    void input();
+    void output();
+    
+    double getDistanceTo(Point);
+
+    Point operator+(Point);
 };
 
-void call_menu();
-void choice(TamGiac&);
+class TamGiac {
+    Point a, b, c;
+
+public:
+    void input();
+    void output();
+
+    bool isValidTriangle();
+
+    void moveFollowVector(Point);
+    Point getCentroidPoint();
+};
+
+void printMenu();
+void choose(TamGiac&);
+
+void moveTriangle(TamGiac&);
+void printCentoroidPointOf(TamGiac);
 
 int main() {
-    TamGiac x;
-    call_menu();
-    choice(x);
+    TamGiac triangle;
+    triangle.input();
+    system("cls");
+    choose(triangle);
     system("pause");
 }
 
-void call_menu() {
+void printMenu() {
     cout << "_______________________________" << endl;
+    cout << "0. Thoat" << endl;
     cout << "1. Nhap tam giac" << endl;
     cout << "2. Xuat tam giac" << endl;
     cout << "3. Tinh tien tam giac" << endl;
     cout << "4. Lay trong tam tam giac" << endl;
     cout << "_______________________________" << endl;
 }
-void choice(TamGiac& a) {
+void choose(TamGiac& triangle) {
+    printMenu();
     int x;
-    cout << "Nhap lua chon: ";
+    cout << "Lua chon cua ban la ";
     cin >> x;
+    system("cls");
     switch (x) {
+    case 0:
+        return;
     case 1:
-        system("cls");
-        a.TamGiac_import();
-        call_menu();
-        choice(a);
+        triangle.input();
         break;
     case 2:
-        system("cls");
-        a.TamGiac_export();
-        call_menu();
-        choice(a);
+        triangle.output();
         break;
     case 3:
-        system("cls");
-        a.move_vector();
-        call_menu();
-        choice(a);
+        moveTriangle(triangle);
         break;
     case 4:
-        system("cls");
-        cout << "Toa do trong tam tam giac la ";
-        a.centroid().point_export();
-        call_menu();
-        choice(a);
+        printCentoroidPointOf(triangle);
         break;
     default:
-        system("cls");
         cout << "Lua chon khong ton tai" << endl;
-        call_menu();
-        choice(a);
         break;
     }
+    choose(triangle);
 }
 
-double point::get_x() {
+double Point::getX() {
     return x;
 }
-double point::get_y() {
+double Point::getY() {
     return y;
 }
-void point::point_import() {
+void Point::input() {
     cout << "\n Hoanh do: ";
     cin >> x;
     cout << " Tung do: ";
     cin >> y;
 }
-void point::point_export() {
+void Point::output() {
     cout << "(" << x << "," << y << ")" << endl;
 }
-void point::set(double x, double y) {
+void Point::set(double x, double y) {
     this->x = x;
     this->y = y;
 }
-point point::operator+(point move) {
-    point temp;
+double Point::getDistanceTo(Point anotherPoint) {
+    return sqrt((x - anotherPoint.getX()) * (x - anotherPoint.getX()) + (y - anotherPoint.getY()) * (y - anotherPoint.getY()));
+}
+Point Point::operator+(Point move) {
+    Point temp;
     temp.x = x + move.x;
     temp.y = y + move.y;
     return temp;
 }
 
-void TamGiac::TamGiac_import() {
+void TamGiac::input() {
     cout << "Nhap toa do ba dinh cua tam giac: " << endl;
+
     cout << "Dinh thu nhat: ";
-    a.point_import();
+    a.input();
     cout << "Dinh thu hai: ";
-    b.point_import();
+    b.input();
     cout << "Dinh thu ba: ";
-    c.point_import();
+    c.input();
+
+    if (!isValidTriangle()) {
+        system("cls");
+        cout << "Tam giac nay khong ton tai. Vui long nhap lai toa do ba dinh cua tam giac." << endl;
+        input();
+    }
 }
-void TamGiac::TamGiac_export() {
-    cout << "Toa do ba dinh cua tam giac la: " << endl;
-    cout << "Dinh thu nhat co toa do ";
-    a.point_export();
-    cout << "Dinh thu hai co toa do ";
-    b.point_export();
-    cout << "Dinh thu ba co toa do ";
-    c.point_export();
+void TamGiac::output() {
+    cout << "Toa do ba dinh cua tam giac: " << endl;
+    cout << " Dinh thu nhat: ";
+    a.output();
+    cout << " Dinh thu hai: ";
+    b.output();
+    cout << " Dinh thu ba: ";
+    c.output();
 }
-void TamGiac::move_vector() {
-    point vector_move;
-    cout << "Nhap toa do vector tinh tien:" << endl;
-    vector_move.point_import();
+bool TamGiac::isValidTriangle() {
+    double edgeAB = a.getDistanceTo(b);
+    double edgeBC = b.getDistanceTo(c);
+    double edgeAC = a.getDistanceTo(c);
+
+    if ((edgeAB + edgeBC > edgeAC) && (edgeBC + edgeAC > edgeAB) && (edgeAB + edgeAC > edgeBC))
+        return true;
+    return false;
+}
+void TamGiac::moveFollowVector(Point vector) {
+    a = a + vector;
+    b = b + vector;
+    c = c + vector;
+}
+Point TamGiac::getCentroidPoint() {
+    Point result = a + b + c;
+    result.set(result.getX() / 3, result.getY() / 3);
+    return result;
+}
+
+void moveTriangle(TamGiac& triangle) {
+    Point vectorForMoving;
+    cout << "Nhap toa do vector tinh tien:";
+    vectorForMoving.input();
+    triangle.moveFollowVector(vectorForMoving);
     system("cls");
-    a = a + vector_move;
-    b = b + vector_move;
-    c = c + vector_move;
-    cout << "Da tinh tien tam giac theo vector (" << vector_move.get_x() << "," << vector_move.get_y() << ")" << endl;
+    cout << "Da tinh tien tam giac theo vector (" << vectorForMoving.getX() << "," << vectorForMoving.getY() << ")." << endl;
+    triangle.output();
 }
-point TamGiac::centroid() {
-    point temp = a + b + c;
-    temp.set(temp.get_x() / 3, temp.get_y() / 3);
-    return temp;
+void printCentoroidPointOf(TamGiac triangle) {
+    cout << "Toa do trong tam tam giac la ";
+    triangle.getCentroidPoint().output();
 }
