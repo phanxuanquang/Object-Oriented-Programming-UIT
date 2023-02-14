@@ -74,7 +74,7 @@ public:
 };
 
 void printMenu();
-void selectAndDoTasksFor(yourClass& yourObject);
+void selectAndDoTasksFor(YourClass& yourObject);
 
 int main() {
 	YourClass yourObject;
@@ -109,13 +109,13 @@ void selectAndDoTasksFor(YourClass& yourObject) {
 	case 0:
 		return;
 	case 1:
-		// Call the function for selection (1)
+		// Call the function for selection (1) only
 		break;
 	case 2:
-		// Call the function for selection (2)
+		// Call the function for selection (2) only
 		break;
 	case 3:
-		// Call the function for selection (3)
+		// Call the function for selection (3) only
 		break;
 	default:
 		cout << "Invalid choice. Please try again!" << endl;
@@ -124,5 +124,4 @@ void selectAndDoTasksFor(YourClass& yourObject) {
 
 	selectAndDoTasksFor(yourObject);
 }
-
 ```
