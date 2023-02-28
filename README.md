@@ -73,14 +73,14 @@ public:
 	void input();
 };
 
-void printMenu();
-void selectAndDoTasksFor(YourClass& yourObject);
+void showMenu();
+void handleChoiceFor(YourClass& yourObject);
 
 int main() {
 	YourClass yourObject;
 	yourObject.input();
 
-	selectAndDoTasksFor(yourObject);
+	handleChoiceFor(yourObject);
 }
 
 void YourClass::input() {
@@ -88,7 +88,7 @@ void YourClass::input() {
 	cin >> yourVariable;
 }
 
-void printMenu() {
+void showMenu() {
 	cout << "-----------------------------" << endl;
 	cout << " (0) Exit." << endl;
 	cout << " (1) Do something usefull." << endl;
@@ -96,8 +96,8 @@ void printMenu() {
 	cout << " (3) Do something usefull." << endl;
 	cout << "-----------------------------" << endl;
 }
-void selectAndDoTasksFor(YourClass& yourObject) {
-	printMenu();
+void handleChoiceFor(YourClass& yourObject) {
+	showMenu();
 
 	int choice;
 	cout << "Your choice: ";
@@ -122,6 +122,6 @@ void selectAndDoTasksFor(YourClass& yourObject) {
 		break;
 	}
 
-	selectAndDoTasksFor(yourObject);
+	handleChoiceFor(yourObject);
 }
 ```
