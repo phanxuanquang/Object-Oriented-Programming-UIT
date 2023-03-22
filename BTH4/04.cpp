@@ -2,127 +2,125 @@
 using namespace std;
 
 class Stack {
-    int currentSize = -1;
-    int* arr = new int[1000];
-
+	int maxSize, currentSize;
+	int* arr = new int[maxSize];
 public:
-    void stackExport(int x);
-    void push(int);
+	Stack() {
+		currentSize = -1;
+	}
+	void inputMaxSize();
+	void output();
+	bool isEmpty();
+	bool isFull();
+	void push(int);
+	void pop();
+	int getValueAtTop();
+	void deleteStack();
 };
-
-void toBinary(int number);
-void toOctal(int number);
-void toHexa(int number);
-
-void callMenu();
-
-void choose(int);
+void addElementTo(Stack&);
+void showMenu();
+void handleChoiceFor(Stack&);
 
 int main() {
-    int number;
-    Stack stack;
-    cout << "So can phan tich la ";
-    cin >> number;
-
-    choose(number);
+	Stack Stack;
+	Stack.inputMaxSize();
+	handleChoiceFor(Stack);
 }
 
-void callMenu() {
-    cout << "________________________________" << endl;
-    cout << " (0) Thoat chuong trinh." << endl;
-    cout << " (1) Doi sang he nhi phan." << endl;
-    cout << " (2) Doi sang he bat phan." << endl;
-    cout << " (3) Doi sang he thap luc phan." << endl;
-    cout << "________________________________" << endl;
+void addElementTo(Stack& stack) {
+	int add_element;
+	cout << "Phan tu muon them la: ";
+	cin >> add_element;
+	system("cls");
+	stack.push(add_element);
 }
-void choose(int number) {
-    callMenu();
-
-    int choice;
-    cout << "Lua chon cua ban la: ";
-    cin >> choice;
-
-    system("cls");
-    switch (choice) {
-    case 0:
-        return;
-    case 1:
-        toBinary(number);
-        break;
-    case 2:
-        toOctal(number);
-        break;
-    case 3:
-        toHexa(number);
-        break;
-    default:
-        cout << "Lua chon khong hop le, hay nhap lai" << endl;
-        break;
-    }
-    choose(number);
+void showMenu() {
+	cout << "_____________________________________________" << endl;
+	cout << "1. Push (them phan tu tren dau ngan xep)" << endl;
+	cout << "2. Pop (lay ra phan tu tren dau ngan xep" << endl;
+	cout << "3. In ra phan tu tren dau ngan xep" << endl;
+	cout << "4. In ra ngan xep hien tai" << endl;
+	cout << "5. Xoa ngan xep da tao" << endl;
+	cout << "_____________________________________________" << endl;
 }
-
-void toBinary(int number) {
-    if (number == 0) {
-        cout << number << " = " << 0;
-    }
-    else {
-        Stack binary;
-        int print = number;
-        while (number > 0) {
-            int temp = number % 2;
-            binary.push(temp);
-            number /= 2;
-        }
-        binary.stackExport(print);
-    }
-    cout << " (2)" << endl;
-}
-void toOctal(int number) {
-    if (number == 0) {
-        cout << number << " = " << 0;
-    }
-    else {
-        Stack octal;
-        int print = number;
-        while (number > 0) {
-            int temp = number % 8;
-            octal.push(temp);
-            number /= 8;
-        }
-        octal.stackExport(print);
-    }
-    cout << " (8)" << endl;
-}
-void toHexa(int number) {
-    if (number == 0) {
-        cout << number << " = " << 0;
-    }
-    else {
-        Stack hexa;
-        int print = number;
-        while (number > 0) {
-            int temp = number % 16;
-            hexa.push(temp);
-            number /= 16;
-        }
-        hexa.stackExport(print);
-    }
-    cout << " (16)" << endl;
+void handleChoiceFor(Stack& stack) {
+	showMenu();
+	int choice;
+	cout << "Lua chon cua ban la: ";
+	cin >> choice;
+	system("cls");
+	switch (choice) {
+	case 1:
+		addElementTo(stack);
+		showMenu();
+		break;
+	case 2:
+		stack.pop();
+		break;
+	case 3:
+		cout << "Phan tu tren dau ngan xep la " << stack.getValueAtTop() << endl;
+		break;
+	case 4:
+		stack.output();
+		break;
+	case 5:
+		stack.deleteStack();
+		cout << "Da xoa ngan xep" << endl;
+		break;
+	default:
+		cout << "Lua chon khong hop le, hay nhap lai" << endl;
+		break;
+	}
+	handleChoiceFor(stack);
 }
 
-void Stack::stackExport(int x) {
-    cout << x << " = ";
-    for (int i = currentSize; i >= 0; i--) {
-        if (arr[i] < 10) {
-            cout << arr[i];
-        }
-        else {
-            cout << char(arr[i] + 55);
-        }
-    }
+void Stack::inputMaxSize() {
+	cout << "Cho trong toi da cua ngan xep la ";
+	cin >> maxSize;
 }
-void Stack::push(int addElement) {
-    currentSize++;
-    arr[currentSize] = addElement;
+void Stack::output() {
+	if (!isEmpty()) {
+		cout << "Ngan xep hien tai la: ";
+		for (int i = currentSize; i >= 0; i--)
+			cout << arr[i] << " ";
+	}
+	else cout << "Ngan xep rong";
+	cout << endl;
+}
+bool Stack::isEmpty() {
+	if (currentSize == -1)
+		return true;
+	return false;
+}
+bool Stack::isFull() {
+	if (currentSize == maxSize - 1)
+		return true;
+	return false;
+}
+void Stack::push(int element) {
+	if (!isFull()) {
+		currentSize++;
+		arr[currentSize] = element;
+		cout << "Da them phan tu " << element << " vao ngan xep" << endl;
+	}
+	else cout << "Ngan xep da day" << endl;
+}
+void Stack::pop() {
+	if (!isEmpty()) {
+
+		cout << "Da lay phan tu " << arr[currentSize] << " khoi ngan xep" << endl;
+		currentSize--;
+	}
+	else cout << "Ngan xep rong" << endl;
+}
+int Stack::getValueAtTop() {
+	if (!isEmpty())
+		return arr[currentSize];
+	else {
+		cout << "Ngan xep rong" << endl;
+		return -1;
+	}
+}
+void Stack::deleteStack() {
+	currentSize = -1;
 }
