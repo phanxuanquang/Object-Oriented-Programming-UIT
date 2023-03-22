@@ -1,45 +1,42 @@
 #include <iostream>
 using namespace std;
 
-class queue {
-    int max_size;
-    int* arr = new int[max_size];
-    int element;
-    int front, rear;
+class Queue {
+    int size;
+    int* arr = new int[size];
+    int head, tail;
 public:
-    queue(){
-        this->front = -1;
-        this->rear = -1;
+    Queue() {
+        this->head = -1;
+        this->tail = -1;
     }
     int get_max_size() {
-        return max_size;
+        return size;
     }
-    void import();
-    void print();
+    void input();
+    void output();
     void EnQueue(int);
     void DeQueue();
-    bool check_Empty();
-    bool check_Full();
-    int amount();
-    void delete_Queue();
+    bool isEmpty();
+    bool isFull();
+    int getCurrentSize();
+    void deleteQueue();
 };
 
-void add(queue&);
-void remove_head(queue& a);
-void call_menu();
-void choose(queue&);
+void removeElementFrom(Queue&);
+void getCurrentSizeOf(Queue&);
+void showMenu();
+void handleTaskFor(Queue&);
 
-int main(){
-    queue a;
-    a.import();
-    system("cls");
-    call_menu();
-    choose(a);
+int main() {
+    Queue queue;
+    queue.input();
+    handleTaskFor(queue);
     system("pause");
 }
 
-void add_tail(queue& a) {
-    if (a.check_Full())
+void addElementTo(Queue& a) {
+    if (a.isFull())
         cout << "Hang doi da day" << endl;
     else {
         int x;
@@ -47,19 +44,24 @@ void add_tail(queue& a) {
         cin >> x;
         system("cls");
         a.EnQueue(x);
-        cout << "Da them" << endl;      
+        cout << "Da them" << endl;
     }
 }
-void remove_head(queue& a) {
+void removeElementFrom(Queue& a) {
     system("cls");
-    if (a.check_Empty())
+    if (a.isEmpty())
         cout << "Hang doi rong" << endl;
     else {
         a.DeQueue();
         cout << "Da xoa phan tu khoi hang doi" << endl;
     }
 }
-void call_menu() {
+void getCurrentSizeOf(Queue& queue) {
+    if (queue.isEmpty())
+        cout << "Hang doi rong" << endl;
+    else cout << "Hang doi hien tai co " << queue.getCurrentSize() << " phan tu" << endl;
+}
+void showMenu() {
     cout << "=======================================" << endl;
     cout << "1. EnQueue (them 1 phan tu vao cuoi hang doi)" << endl;
     cout << "2. DeQueue (xoa phan tu o dau hang doi)" << endl;
@@ -68,89 +70,72 @@ void call_menu() {
     cout << "5. Xoa hang doi hien tai" << endl;
     cout << "=======================================" << endl;
 }
-void choose(queue& x) {
+void handleTaskFor(Queue& queue) {
+    showMenu();
     int choice;
     cout << "Lua chon cua ban la: ";
     cin >> choice;
+    system("cls");
     switch (choice) {
     case 1:
-        system("cls");
-        add_tail(x);
-        call_menu();
-        choose(x);
+        addElementTo(queue);
         break;
     case 2:
-        system("cls");
-        remove_head(x);
-        call_menu();
-        choose(x);
+        removeElementFrom(queue);
         break;
     case 3:
-        system("cls");
-        x.print();
-        call_menu();
-        choose(x);
+        queue.output();
         break;
     case 4:
-        system("cls");
-        if (x.check_Empty())
-            cout << "Hang doi rong" << endl;
-        else cout << "Hang doi hien tai co " << x.amount() << " phan tu" << endl;
-        call_menu();
-        choose(x);
+        getCurrentSizeOf(queue);
         break;
     case 5:
-        system("cls");
-        x.delete_Queue();
-        call_menu();
-        choose(x);
+        queue.deleteQueue();
         break;
     default:
-        system("cls");
         cout << "Lua chon khong hop le, vui long nhap lai" << endl;
-        call_menu();
-        choose(x);
         break;
     }
+    handleTaskFor(queue);
 }
 
-void queue::import() {
+void Queue::input() {
     cout << "So phan tu toi da cua hang doi: ";
-    cin >> max_size;
+    cin >> size;
 }
-void queue::print() {
-    if (check_Empty())
+void Queue::output() {
+    if (isEmpty())
         cout << "Hang doi rong";
     else {
         cout << "Hang doi hien tai la: ";
-        for (int i = front; i <= rear; i++)
+        for (int i = head; i <= tail; i++)
             cout << arr[i] << " ";
     }
     cout << endl;
 }
-void queue::EnQueue(int add_element) {
-    if (front == -1)
-        front++;
-    rear++;
-    arr[rear] = add_element;
+void Queue::EnQueue(int add_element) {
+    if (head == -1)
+        head++;
+    tail++;
+    arr[tail] = add_element;
 }
-void queue::DeQueue() {
-    front++;
+void Queue::DeQueue() {
+    head++;
 }
-bool queue::check_Empty() {
-    if (amount() == 0)
+bool Queue::isEmpty() {
+    if (getCurrentSize() == 0)
         return true;
     return false;
 }
-bool queue::check_Full() {
-    if (amount() == max_size)
+bool Queue::isFull() {
+    if (getCurrentSize() == size)
         return true;
     return false;
 }
-int queue::amount() {
-    return (rear - front + 1);
+int Queue::getCurrentSize() {
+    return (tail - head + 1);
 }
-void queue::delete_Queue() {
+void Queue::deleteQueue() {
     cout << "Da xoa hang doi hien tai" << endl;
-    front = rear = -1;
+    head = tail = -1;
 }
