@@ -2,125 +2,118 @@
 using namespace std;
 
 class Stack {
-	int maxSize, currentSize;
-	int* arr = new int[maxSize];
+    int size = -1;
+    int* arr = new int[10000000];
+
 public:
-	Stack() {
-		currentSize = -1;
-	}
-	void inputMaxSize();
-	void output();
-	bool isEmpty();
-	bool isFull();
-	void push(int);
-	void pop();
-	int getValueAtTop();
-	void deleteStack();
+    void output(int);
+    void push(int);
 };
-void addElementTo(Stack&);
+void convertToBinaryFrom(int number);
+void convertToOctalFrom(int number);
+void convertToHexaFrom(int number);
+
 void showMenu();
-void handleChoiceFor(Stack&);
+void handleTasksFor(int);
 
 int main() {
-	Stack Stack;
-	Stack.inputMaxSize();
-	handleChoiceFor(Stack);
+    int number;
+    Stack stack;
+
+    cout << "So can phan tich la ";
+    cin >> number;
+
+    showMenu();
+    handleTasksFor(number);
 }
 
-void addElementTo(Stack& stack) {
-	int add_element;
-	cout << "Phan tu muon them la: ";
-	cin >> add_element;
-	system("cls");
-	stack.push(add_element);
-}
 void showMenu() {
-	cout << "_____________________________________________" << endl;
-	cout << "1. Push (them phan tu tren dau ngan xep)" << endl;
-	cout << "2. Pop (lay ra phan tu tren dau ngan xep" << endl;
-	cout << "3. In ra phan tu tren dau ngan xep" << endl;
-	cout << "4. In ra ngan xep hien tai" << endl;
-	cout << "5. Xoa ngan xep da tao" << endl;
-	cout << "_____________________________________________" << endl;
+    cout << "________________________________" << endl;
+    cout << "1. Doi sang he nhi phan" << endl;
+    cout << "2. Doi sang he bat phan" << endl;
+    cout << "3. Doi sang he thap luc phan" << endl;
+    cout << "________________________________" << endl;
 }
-void handleChoiceFor(Stack& stack) {
-	showMenu();
-	int choice;
-	cout << "Lua chon cua ban la: ";
-	cin >> choice;
-	system("cls");
-	switch (choice) {
-	case 1:
-		addElementTo(stack);
-		showMenu();
-		break;
-	case 2:
-		stack.pop();
-		break;
-	case 3:
-		cout << "Phan tu tren dau ngan xep la " << stack.getValueAtTop() << endl;
-		break;
-	case 4:
-		stack.output();
-		break;
-	case 5:
-		stack.deleteStack();
-		cout << "Da xoa ngan xep" << endl;
-		break;
-	default:
-		cout << "Lua chon khong hop le, hay nhap lai" << endl;
-		break;
-	}
-	handleChoiceFor(stack);
+void handleTasksFor(int number) {
+    int choice;
+    cout << "Lua chon cua ban la: ";
+    cin >> choice;
+    system("cls");
+
+    switch (choice) {
+    case 1:
+        convertToBinaryFrom(number);
+        break;
+    case 2:
+        convertToOctalFrom(number);
+        break;
+    case 3:
+        convertToHexaFrom(number);
+        break;
+    default:
+        cout << "Lua chon khong hop le, hay nhap lai." << endl;
+        break;
+    }
+
+    showMenu();
+    handleTasksFor(number);
 }
 
-void Stack::inputMaxSize() {
-	cout << "Cho trong toi da cua ngan xep la ";
-	cin >> maxSize;
+void convertToBinaryFrom(int number) {
+    if (number == 0)
+        cout << number << " = " << 0;
+    else {
+        Stack binary;
+        int print = number;
+        while (number > 0) {
+            int temp = number % 2;
+            binary.push(temp);
+            number /= 2;
+        }
+        binary.output(print);
+    }
+    cout << " (2)" << endl;
 }
-void Stack::output() {
-	if (!isEmpty()) {
-		cout << "Ngan xep hien tai la: ";
-		for (int i = currentSize; i >= 0; i--)
-			cout << arr[i] << " ";
-	}
-	else cout << "Ngan xep rong";
-	cout << endl;
+void convertToOctalFrom(int number) {
+    if (number == 0)
+        cout << number << " = " << 0;
+    else {
+        Stack octal;
+        int print = number;
+        while (number > 0) {
+            int temp = number % 8;
+            octal.push(temp);
+            number /= 8;
+        }
+        octal.output(print);
+    }
+    cout << " (8)" << endl;
 }
-bool Stack::isEmpty() {
-	if (currentSize == -1)
-		return true;
-	return false;
+void convertToHexaFrom(int number) {
+    if (number == 0)
+        cout << number << " = " << 0;
+    else {
+        Stack hexa;
+        int print = number;
+        while (number > 0) {
+            int temp = number % 16;
+            hexa.push(temp);
+            number /= 16;
+        }
+        hexa.output(print);
+    }
+    cout << " (16)" << endl;
 }
-bool Stack::isFull() {
-	if (currentSize == maxSize - 1)
-		return true;
-	return false;
-}
-void Stack::push(int element) {
-	if (!isFull()) {
-		currentSize++;
-		arr[currentSize] = element;
-		cout << "Da them phan tu " << element << " vao ngan xep" << endl;
-	}
-	else cout << "Ngan xep da day" << endl;
-}
-void Stack::pop() {
-	if (!isEmpty()) {
 
-		cout << "Da lay phan tu " << arr[currentSize] << " khoi ngan xep" << endl;
-		currentSize--;
-	}
-	else cout << "Ngan xep rong" << endl;
+void Stack::output(int number) {
+    cout << number << " = ";
+    for (int i = size; i >= 0; i--) {
+        if (arr[i] < 10)
+            cout << arr[i];
+        else cout << char(arr[i] + 55);
+    }
 }
-int Stack::getValueAtTop() {
-	if (!isEmpty())
-		return arr[currentSize];
-	else {
-		cout << "Ngan xep rong" << endl;
-		return -1;
-	}
-}
-void Stack::deleteStack() {
-	currentSize = -1;
+void Stack::push(int newElement) {
+    size++;
+    arr[size] = newElement;
 }
