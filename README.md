@@ -12,28 +12,28 @@ ____________________________
 
 - Hạn chế đặt tên theo ngôn ngữ sở tại (chẳng hạn như tiếng Việt), nên sử dụng tiếng Anh để tránh người khác đọc hiểu sai nghĩa. Ngoài ra, hãy đặt tên có nghĩa, không nên quá dài và tránh sử dụng những từ dễ bị nhầm lẫn hoặc đồng âm. Lưu ý rằng, viết tắt tên chính là một nghệ thuật và phải thực hiện đúng cách để tối ưu cho việc đọc hiểu.
 Ví dụ: 
-```
+```console
 string phoneNumber;
 string phoneNum;
 int naturalNumber;
 ```
 
 - Tên biến và tên hàm nên viết theo dạng lạc đà (CamelCase) hoặc dạng rắn (snake_case). Ở đây, tác giả sử dụng dạng lạc đà. Ví dụ:
-```
+```console
 string phoneNumber; 
 string phoneNum;
 int arraySize;
 ```
 - Tên mảng được đặt theo tên phần tử của mảng ở dạng số nhiều. Quy tắt này được áp dụng trong lập trình hướng đối tượng hoặc với kiểu lập trình sử dụng struct.
 Ví dụ: 
-```
+```js
 Student students[100];
 Dog asianDogs[100];
 ```
 
 - Viết hoa chữ cái đầu mỗi từ trong tên class và struct.
 Ví dụ:
-```
+```js
 class Student {};
 struct Dog {};
 class AsianMan {};
@@ -41,7 +41,7 @@ class AsianMan {};
 
 - Đối với biến và hàm của kiều dữ liệu bool, hãy đặt tên để ngầm hiểu câu trả lời là Yes hoặc No.
 Ví dụ:
-```
+```js
 bool isVerified;
 bool didHomework;
 bool hasFiveDogs;
@@ -50,7 +50,7 @@ bool isValidAccount();
 
 - Viết hoa tất cả các ký tự trong tên của hằng số và mỗi từ trong tên phân tách bởi dấu gạch chân.
 Ví dụ: 
-```
+```js
 const double PI = 3.14;
 const int MAX_SIZE = 10000;
 ```
@@ -62,7 +62,7 @@ const int MAX_SIZE = 10000;
 ____________________________
 ### Để tối ưu cho việc triển khai chương trình đa lựa chọn dạng menu, tác giả cung cấp cho các bạn một mẫu menu bên dưới.
 
-```
+```js
 #include <iostream>
 using namespace std;
 
