@@ -74,10 +74,12 @@ code, pre { font-variant-ligatures: none; }
 .btn-icon {
   --bs-btn-padding-x: .45rem; --bs-btn-padding-y: .45rem; --bs-btn-border-color: transparent;
   --bs-btn-color: var(--bs-secondary-color); --bs-btn-hover-color: var(--bs-primary);
-  --bs-btn-hover-bg: var(--bs-secondary-bg); --bs-btn-active-bg: var(--bs-secondary-bg);
+  --bs-btn-hover-bg: var(--bs-secondary-bg); --bs-btn-active-bg: var(--bs-secondary-bg); --bs-btn-active-color: var(--bs-primary);
   --bs-btn-hover-border-color: transparent; --bs-btn-disabled-border-color: transparent; --bs-btn-disabled-opacity: .35;
+  display: inline-flex; align-items: center; line-height: 1;
 }
 .btn-icon.btn-sm { --bs-btn-padding-x: .3rem; --bs-btn-padding-y: .3rem; }
+.btn-icon > :is(.material-symbols-rounded, svg) { width: 1.25rem; height: 1.25rem; font-size: 1.25rem; } /* same 20px box for font icons and the GitHub SVG */
 
 /* Home: lab carousel (3 cards visible, scroll for more) */
 .lab-grid {

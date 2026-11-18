@@ -27,14 +27,19 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- Preload app.js imports so they download in parallel with it, not after it. -->
+<!-- Preload every module so they download in parallel instead of one import at a time. -->
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/marked@15.0.12/lib/marked.esm.min.js" crossorigin>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/es/core.min.js" crossorigin>
 <link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/es/languages/cpp.min.js" crossorigin>
-<link rel="modulepreload" href="assets/app.js">
+<link rel="modulepreload" href="assets/js/main.js">
+<link rel="modulepreload" href="assets/js/core.js">
+<link rel="modulepreload" href="assets/js/ui.js">
+<link rel="modulepreload" href="assets/js/ai.js">
+<link rel="modulepreload" href="assets/js/home.js">
+<link rel="modulepreload" href="assets/js/lab.js">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,check,chevron_left,chevron_right,code,content_copy,dark_mode,description,download,home,light_mode,menu,menu_book,open_in_new&display=block">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,auto_awesome,check,chevron_left,chevron_right,code,content_copy,dark_mode,description,download,home,light_mode,menu,menu_book,open_in_new&display=block">
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">
 {
@@ -54,7 +59,7 @@
 }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" defer></script>
-<script type="module" src="assets/app.js"></script>
+<script type="module" src="assets/js/main.js"></script>
 </head>
 <body>
 <a class="visually-hidden-focusable skip-link position-absolute top-0 start-0 m-2 px-3 py-2 bg-body rounded-2" href="#main">Bỏ qua đến nội dung chính</a>
@@ -90,7 +95,7 @@
         <button class="btn btn-icon" type="button" data-scroll="-1" aria-controls="labs" aria-label="Xem bài trước" data-bs-title="Trước"><span class="material-symbols-rounded" aria-hidden="true">chevron_left</span></button>
         <button class="btn btn-icon" type="button" data-scroll="1" aria-controls="labs" aria-label="Xem thêm bài" data-bs-title="Xem thêm"><span class="material-symbols-rounded" aria-hidden="true">chevron_right</span></button>
       </div>
-      <!-- Single source of truth for labs: app.js reads data-* from these items. -->
+      <!-- Single source of truth for labs: assets/js/main.js reads data-* from these items. -->
       <ol class="lab-grid list-unstyled" id="labs">
         <li data-dir="BTH1" data-files="01.cpp 02.cpp 03.cpp 04.cpp 05.cpp">
           <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=bth1"><span class="small fw-semibold text-uppercase text-primary mb-2">Làm quen với lớp và đối tượng</span><h3 class="fs-5">Bài thực hành 1</h3><p class="small text-body-secondary flex-grow-1">Rút gọn và so sánh phân số, cộng trừ nhân chia phân số, tìm ngày kế tiếp, tính điểm trung bình học sinh.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 5</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
@@ -121,7 +126,10 @@
       <div class="row">
       <div class="col-lg-4">
         <div class="guide-side">
-          <h2 class="fs-3 mb-3" id="huong-dan">Hướng dẫn học</h2>
+          <div class="d-flex align-items-center gap-1 mb-3">
+            <h2 class="fs-3 me-auto mb-0" id="huong-dan">Hướng dẫn học</h2>
+            <button class="btn btn-icon" type="button" data-ai="summarize" data-target="#guide" aria-pressed="false" aria-label="Tóm tắt hướng dẫn học bằng AI" data-bs-title="Tóm tắt bằng AI" hidden><span class="material-symbols-rounded" aria-hidden="true">auto_awesome</span></button>
+          </div>
           <nav aria-label="Mục lục hướng dẫn"><ul class="nav flex-column border-start guide-toc" id="guide-toc"></ul></nav>
         </div>
       </div>
@@ -135,7 +143,7 @@
   </div>
 </main>
 
-<!-- Lab view, filled by app.js when the URL has ?lab=... -->
+<!-- Lab view, filled by assets/js/lab.js when the URL has ?lab=... -->
 <div class="container-xl lab-view" hidden>
   <div class="row">
     <aside class="col-lg-3">
