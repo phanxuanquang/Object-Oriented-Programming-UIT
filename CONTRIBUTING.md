@@ -28,7 +28,7 @@ Cảm ơn bạn đã muốn đóng góp! Mọi thay đổi đều đi qua Pull R
 | Sửa hướng dẫn học (trang chủ) | [`materials/GUIDE.md`](materials/GUIDE.md) |
 | Thêm lời giải còn thiếu | Thêm [`materials/<BTH>/0N.cpp`](materials/), rồi thêm tên file vào `data-files` của thẻ `<li>` tương ứng trong [`src/index.html`](src/index.html) |
 | Thêm bài thực hành mới | Xem mục [Thêm bài thực hành mới](#thêm-bài-thực-hành-mới) |
-| Sửa giao diện | [`src/index.html`](src/index.html), [`src/assets/style.css`](src/assets/style.css), [`src/assets/app.js`](src/assets/app.js) |
+| Sửa giao diện | [`src/index.html`](src/index.html), [`src/assets/style.css`](src/assets/style.css), [`src/assets/js/`](src/assets/js/) (`main.js` điều hướng, `core.js` tiện ích dùng chung, `ui.js` theme/tooltip/sao chép, `home.js` trang chủ, `lab.js` trang bài thực hành, `ai.js` tính năng AI) |
 
 ## Thêm bài thực hành mới
 
