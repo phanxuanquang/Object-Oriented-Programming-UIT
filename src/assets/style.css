@@ -1,0 +1,150 @@
+/* Theme: Bootstrap CSS variables only (no Sass), following docs/5.3/customize/color-modes.
+   Primary family (text-emphasis / bg-subtle / border-subtle) is derived from #005A9C like Bootstrap derives it from #0d6efd.
+   Black and white, #005A9C is the single accent.
+   Every hex has its -rgb twin because Bootstrap utilities (bg-body-*, text-body, text-primary) read the rgb one. */
+:root {
+  --brand-600: #004c85;
+  --brand-700: #00406e;
+  --header-h: 3.75rem;
+
+  --bs-body-font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --bs-font-monospace: "Cascadia Code", "JetBrains Mono", Consolas, ui-monospace, monospace;
+  --bs-body-font-size: 1.0625rem;
+  --bs-body-line-height: 1.7;
+
+  --bs-body-color: #171717;          --bs-body-color-rgb: 23, 23, 23;
+  --bs-emphasis-color: #000;         --bs-emphasis-color-rgb: 0, 0, 0;
+  --bs-secondary-color: #5c5c5c;     --bs-secondary-color-rgb: 92, 92, 92;
+  --bs-secondary-bg: #f5f5f5;        --bs-secondary-bg-rgb: 245, 245, 245;
+  --bs-tertiary-bg: #fafafa;         --bs-tertiary-bg-rgb: 250, 250, 250;
+  --bs-border-color: #e5e5e5;
+  --bs-code-color: var(--bs-body-color);
+  --bs-primary: #005a9c;             --bs-primary-rgb: 0, 90, 156;
+  --bs-link-color: #005a9c;          --bs-link-color-rgb: 0, 90, 156;
+  --bs-link-hover-color: #00406e;    --bs-link-hover-color-rgb: 0, 64, 110;
+  --bs-primary-text-emphasis: #00243e;
+  --bs-primary-bg-subtle: #ccdeeb;
+  --bs-primary-border-subtle: #99bdd7;
+  --bs-tertiary-color: rgba(23, 23, 23, .5);
+  --bs-focus-ring-color: rgba(0, 90, 156, .25);
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: #0a0a0a;             --bs-body-bg-rgb: 10, 10, 10;
+  --bs-body-color: #ededed;          --bs-body-color-rgb: 237, 237, 237;
+  --bs-emphasis-color: #fff;         --bs-emphasis-color-rgb: 255, 255, 255;
+  --bs-secondary-color: #a3a3a3;     --bs-secondary-color-rgb: 163, 163, 163;
+  --bs-secondary-bg: #1c1c1c;        --bs-secondary-bg-rgb: 28, 28, 28;
+  --bs-tertiary-bg: #121212;         --bs-tertiary-bg-rgb: 18, 18, 18;
+  --bs-border-color: #2a2a2a;
+  --bs-code-color: var(--bs-body-color);
+  --bs-primary: #66a0cc;             --bs-primary-rgb: 102, 160, 204;
+  --bs-link-color: #66a0cc;          --bs-link-color-rgb: 102, 160, 204;
+  --bs-link-hover-color: #99c0de;    --bs-link-hover-color-rgb: 153, 192, 222;
+  --bs-primary-text-emphasis: #99c0de;
+  --bs-primary-bg-subtle: #00121f;
+  --bs-primary-border-subtle: #00365e;
+  --bs-tertiary-color: rgba(237, 237, 237, .5);
+  --bs-focus-ring-color: rgba(102, 160, 204, .25);
+}
+
+/* Base */
+html { scroll-padding-top: calc(var(--header-h) + 1rem); }
+html:has(.problem-tabs) { scroll-padding-top: calc(var(--header-h) + 4.5rem); } /* header + sticky tab bar */
+:focus-visible { outline: 2px solid var(--bs-primary); outline-offset: 2px; box-shadow: none !important; } /* one accent ring, replaces Bootstrap's blue */
+[hidden] { display: none !important; } /* .btn/.d-* would otherwise beat the hidden attribute */
+h1, h2, h3 { font-weight: 700; letter-spacing: -.015em; text-wrap: balance; }
+a { text-underline-offset: .2em; }
+code, pre { font-variant-ligatures: none; }
+.material-symbols-rounded { font-size: 1.25em; line-height: 1; vertical-align: -.22em; }
+.skip-link { z-index: 1100; } /* above the sticky header (1020) */
+.site-header nav { height: var(--header-h); }
+
+/* Buttons: accent primary, borderless icon buttons */
+.btn-primary {
+  --bs-btn-bg: #005a9c; --bs-btn-border-color: #005a9c; /* same in both themes: white text keeps 7:1 */
+  --bs-btn-hover-bg: var(--brand-600); --bs-btn-hover-border-color: var(--brand-600);
+  --bs-btn-active-bg: var(--brand-700); --bs-btn-active-border-color: var(--brand-700);
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--bs-primary); --bs-btn-border-color: var(--bs-border-color);
+  --bs-btn-hover-color: var(--bs-primary); --bs-btn-hover-bg: var(--bs-secondary-bg); --bs-btn-hover-border-color: var(--bs-primary);
+  --bs-btn-active-color: var(--bs-primary); --bs-btn-active-bg: var(--bs-secondary-bg); --bs-btn-active-border-color: var(--bs-primary);
+}
+.btn-icon {
+  --bs-btn-padding-x: .45rem; --bs-btn-padding-y: .45rem; --bs-btn-border-color: transparent;
+  --bs-btn-color: var(--bs-secondary-color); --bs-btn-hover-color: var(--bs-primary);
+  --bs-btn-hover-bg: var(--bs-secondary-bg); --bs-btn-active-bg: var(--bs-secondary-bg);
+  --bs-btn-hover-border-color: transparent; --bs-btn-disabled-border-color: transparent; --bs-btn-disabled-opacity: .35;
+}
+.btn-icon.btn-sm { --bs-btn-padding-x: .3rem; --bs-btn-padding-y: .3rem; }
+
+/* Home: lab carousel (3 cards visible, scroll for more) */
+.lab-grid {
+  --visible: 3;
+  display: grid; grid-auto-flow: column; gap: 1rem; padding: 2px;
+  grid-auto-columns: calc((100% - (var(--visible) - 1) * 1rem) / var(--visible));
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+}
+.lab-grid > li { position: relative; scroll-snap-align: start; } /* relative: keeps visually-hidden text clipped by the scroller */
+.lab-card:hover { border-color: var(--bs-primary) !important; }
+
+/* Home: guide with sticky index */
+.guide-toc { --bs-nav-link-color: var(--bs-secondary-color); --bs-nav-link-hover-color: var(--bs-primary); }
+@media (min-width: 992px) { .guide-side { position: sticky; top: calc(var(--header-h) + 1.5rem); } }
+
+/* Lab page */
+.content { max-width: 52rem; }
+.sidebar .nav-pills {
+  --bs-nav-link-color: var(--bs-body-color); --bs-nav-link-hover-color: var(--bs-primary); --bs-nav-link-font-weight: 500;
+  --bs-nav-pills-link-active-bg: var(--bs-secondary-bg); --bs-nav-pills-link-active-color: var(--bs-primary);
+}
+@media (min-width: 992px) {
+  .sidebar { position: sticky; top: var(--header-h); max-height: calc(100vh - var(--header-h)); overflow-y: auto; }
+}
+.problem-tabs {
+  --bs-nav-underline-gap: 1.25rem; --bs-nav-underline-link-active-color: var(--bs-primary);
+  --bs-nav-link-color: var(--bs-secondary-color); --bs-nav-link-hover-color: var(--bs-body-color); --bs-nav-link-padding-y: .75rem;
+  position: sticky; top: var(--header-h); z-index: 2; scrollbar-width: none;
+}
+.problem-tabs .nav-link { margin-bottom: -1px; font-variant-numeric: tabular-nums; } /* underline sits on the bar's border */
+
+/* Markdown output (no classes available) */
+.prose { max-width: 70ch; }
+.guide.prose { max-width: none; }
+.prose h3 { font-size: 1.25rem; margin-top: 2rem; }
+.prose > h3:first-child { margin-top: 0; }
+.prose li + li { margin-top: .35rem; }
+.prose table { width: 100%; margin-bottom: 1rem; font-size: .9375rem; }
+.prose th, .prose td { padding: .5rem .75rem; border: 1px solid var(--bs-border-color); }
+.prose th { background: var(--bs-tertiary-bg); }
+.prose blockquote { padding: .75rem 1rem; border-left: 3px solid var(--bs-primary); background: var(--bs-secondary-bg); border-radius: 0 .5rem .5rem 0; }
+.prose blockquote p:last-child, .note > :last-child { margin-bottom: 0; }
+:not(pre) > code { background: var(--bs-secondary-bg); padding: .1em .35em; border-radius: .3em; }
+pre { background: var(--bs-tertiary-bg); border: 1px solid var(--bs-border-color); border-radius: .75rem; padding: 1rem 1.25rem; line-height: 1.6; tab-size: 4; }
+
+/* highlight.js tokens: black and white, accent only on keywords */
+.hljs-keyword, .hljs-built_in, .hljs-type { color: var(--bs-primary); font-weight: 600; }
+.hljs-title { color: var(--bs-emphasis-color); font-weight: 600; }
+.hljs-string, .hljs-number, .hljs-literal, .hljs-meta { color: var(--bs-secondary-color); }
+.hljs-comment { color: var(--bs-secondary-color); font-style: italic; }
+
+.tooltip { --bs-tooltip-bg: #171717; --bs-tooltip-color: #fff; --bs-tooltip-font-size: .8125rem; }
+[data-bs-theme="dark"] .tooltip { --bs-tooltip-bg: #ededed; --bs-tooltip-color: #0a0a0a; }
+
+/* Desktop-first breakpoints */
+@media (max-width: 1199.98px) { .lab-grid { --visible: 2; } }
+@media (max-width: 575.98px) {
+  :root { --bs-body-font-size: 1rem; }
+  .lab-grid { grid-auto-columns: 85%; }
+}
+@media (prefers-reduced-motion: no-preference) { .lab-grid { scroll-behavior: smooth; } } /* opt-in, same pattern Bootstrap uses for :root */
+
+/* Theme switch: new theme grows as a soft circle from the top-right corner (where the toggle is). */
+::view-transition-group(root) { animation-timing-function: cubic-bezier(.16, 1, .3, 1); }
+::view-transition-new(root) {
+  mask: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><filter id="blur"><feGaussianBlur stdDeviation="2"/></filter></defs><circle cx="40" cy="0" r="18" fill="white" filter="url(%23blur)"/></svg>') top right / 0 no-repeat;
+  animation: theme-reveal 1s both;
+}
+::view-transition-old(root) { animation: none; z-index: -1; }
+@keyframes theme-reveal { to { mask-size: 350vmax; } }

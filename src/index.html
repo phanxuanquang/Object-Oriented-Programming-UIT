@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="vi" data-bs-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lập trình hướng đối tượng UIT: Lời giải bài thực hành C++</title>
+<meta name="description" content="Đề bài và lời giải C++ cho tất cả bài thực hành môn Lập trình hướng đối tượng, Trường Đại học Công nghệ Thông tin (UIT): lớp, đối tượng, nạp chồng toán tử, kế thừa, đa hình.">
+<meta name="author" content="Phan Xuân Quang">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://phanxuanquang.github.io/Object-Oriented-Programming-UIT/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Lập trình hướng đối tượng UIT">
+<meta property="og:locale" content="vi_VN">
+<meta property="og:title" content="Lập trình hướng đối tượng UIT: Lời giải bài thực hành C++">
+<meta property="og:description" content="Đề bài và lời giải C++ cho tất cả bài thực hành môn Lập trình hướng đối tượng, Trường Đại học Công nghệ Thông tin (UIT).">
+<meta property="og:url" content="https://phanxuanquang.github.io/Object-Oriented-Programming-UIT/">
+<meta property="og:image" content="https://phanxuanquang.github.io/Object-Oriented-Programming-UIT/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Lập trình hướng đối tượng UIT: lời giải bài thực hành C++">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<script>try{document.documentElement.dataset.bsTheme=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Preload app.js imports so they download in parallel with it, not after it. -->
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/marked@15.0.12/lib/marked.esm.min.js" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/es/core.min.js" crossorigin>
+<link rel="modulepreload" href="https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.11.1/es/languages/cpp.min.js" crossorigin>
+<link rel="modulepreload" href="assets/app.js">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=arrow_forward,check,chevron_left,chevron_right,code,content_copy,dark_mode,description,download,home,light_mode,menu,menu_book,open_in_new&display=block">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "WebSite", "name": "Lập trình hướng đối tượng UIT", "url": "https://phanxuanquang.github.io/Object-Oriented-Programming-UIT/", "inLanguage": "vi" },
+    {
+      "@type": "Course",
+      "name": "Lập trình hướng đối tượng",
+      "description": "Đề bài và lời giải C++ cho tất cả bài thực hành môn Lập trình hướng đối tượng, Trường Đại học Công nghệ Thông tin (UIT).",
+      "url": "https://phanxuanquang.github.io/Object-Oriented-Programming-UIT/",
+      "inLanguage": "vi",
+      "provider": { "@type": "CollegeOrUniversity", "name": "Trường Đại học Công nghệ Thông tin, ĐHQG-HCM", "sameAs": "https://www.uit.edu.vn" },
+      "author": { "@type": "Person", "name": "Phan Xuân Quang", "url": "https://github.com/phanxuanquang" }
+    }
+  ]
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous" defer></script>
+<script type="module" src="assets/app.js"></script>
+</head>
+<body>
+<a class="visually-hidden-focusable skip-link position-absolute top-0 start-0 m-2 px-3 py-2 bg-body rounded-2" href="#main">Bỏ qua đến nội dung chính</a>
+
+<header class="site-header sticky-top bg-body border-bottom">
+  <nav class="container-xl d-flex align-items-center gap-1" aria-label="Điều hướng chính">
+    <button class="btn btn-icon d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-label="Mở danh sách bài thực hành" data-bs-title="Danh sách bài thực hành" data-lab-only hidden><span class="material-symbols-rounded" aria-hidden="true">menu</span></button>
+    <a class="d-inline-flex align-items-center gap-2 me-auto fw-bold text-body text-decoration-none" href="./"><img src="assets/favicon.svg" width="28" height="28" alt=""> <span>OOP <span class="fw-normal text-body-secondary">UIT</span></span></a>
+    <a class="btn btn-icon" href="materials/Syllabus.pdf" data-mat="Syllabus.pdf" data-bs-title="Đề cương môn học (PDF)" aria-label="Đề cương môn học (PDF)"><span class="material-symbols-rounded" aria-hidden="true">description</span></a>
+    <a class="btn btn-icon" href="https://github.com/phanxuanquang/Object-Oriented-Programming-UIT" rel="noopener" data-bs-title="Mã nguồn trên GitHub" aria-label="Mã nguồn trên GitHub"><svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    <button class="btn btn-icon" type="button" data-theme-toggle data-bs-title="Đổi giao diện sáng/tối" aria-label="Đổi giao diện sáng/tối"><span class="material-symbols-rounded" aria-hidden="true">dark_mode</span></button>
+  </nav>
+</header>
+
+<!-- Home view. Static on purpose: crawlers see every lab link and description without running JS. -->
+<main id="main" class="home">
+  <section class="py-5 border-bottom">
+    <div class="container-xl">
+      <p class="small fw-semibold text-uppercase text-primary mb-2">Trường Đại học Công nghệ Thông tin · ĐHQG-HCM</p>
+      <h1 class="display-4 fw-bold mb-3">Lập trình hướng đối tượng</h1>
+      <p class="lead text-body-secondary col-lg-8 px-0 mb-4">Đề bài và lời giải C++ cho tất cả bài thực hành của môn học. Bài làm chỉ mang tính chất tham khảo: hãy tự làm trước, rồi đối chiếu để hiểu sâu các khái niệm.</p>
+      <div class="d-flex flex-wrap gap-2">
+        <a class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2" href="?lab=bth1">Bắt đầu <span class="material-symbols-rounded" aria-hidden="true">arrow_forward</span></a>
+        <a class="btn btn-outline-primary btn-lg d-inline-flex align-items-center gap-2" href="#huong-dan"><span class="material-symbols-rounded" aria-hidden="true">menu_book</span> Hướng dẫn</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-xl">
+    <section class="py-5" aria-labelledby="labs-h">
+      <div class="d-flex align-items-center gap-1 mb-4">
+        <h2 class="fs-3 me-auto mb-0" id="labs-h">Bài thực hành</h2>
+        <button class="btn btn-icon" type="button" data-scroll="-1" aria-controls="labs" aria-label="Xem bài trước" data-bs-title="Trước"><span class="material-symbols-rounded" aria-hidden="true">chevron_left</span></button>
+        <button class="btn btn-icon" type="button" data-scroll="1" aria-controls="labs" aria-label="Xem thêm bài" data-bs-title="Xem thêm"><span class="material-symbols-rounded" aria-hidden="true">chevron_right</span></button>
+      </div>
+      <!-- Single source of truth for labs: app.js reads data-* from these items. -->
+      <ol class="lab-grid list-unstyled" id="labs">
+        <li data-dir="BTH1" data-files="01.cpp 02.cpp 03.cpp 04.cpp 05.cpp">
+          <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=bth1"><span class="small fw-semibold text-uppercase text-primary mb-2">Làm quen với lớp và đối tượng</span><h3 class="fs-5">Bài thực hành 1</h3><p class="small text-body-secondary flex-grow-1">Rút gọn và so sánh phân số, cộng trừ nhân chia phân số, tìm ngày kế tiếp, tính điểm trung bình học sinh.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 5</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
+        </li>
+        <li data-dir="BTH2" data-files="01.cpp 02.cpp">
+          <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=bth2"><span class="small fw-semibold text-uppercase text-primary mb-2">Lớp và đối tượng</span><h3 class="fs-5">Bài thực hành 2</h3><p class="small text-body-secondary flex-grow-1">Lớp PhanSo với các phép toán cơ bản và chương trình quản lý thí sinh (Candidate) theo tổng điểm.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 2</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
+        </li>
+        <li data-dir="BTH3" data-files="01.cpp 02.cpp 03.cpp">
+          <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=bth3"><span class="small fw-semibold text-uppercase text-primary mb-2">Phương thức thiết lập và huỷ bỏ</span><h3 class="fs-5">Bài thực hành 3</h3><p class="small text-body-secondary flex-grow-1">Lớp điểm, tam giác và đa giác trong mặt phẳng: thiết lập, tịnh tiến, tính trọng tâm.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 3</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
+        </li>
+        <li data-dir="BTH4" data-files="01.cpp 02.cpp 03.cpp 04.cpp 05.cpp">
+          <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=bth4"><span class="small fw-semibold text-uppercase text-primary mb-2">Cấu trúc dữ liệu với lớp</span><h3 class="fs-5">Bài thực hành 4</h3><p class="small text-body-secondary flex-grow-1">Lớp thời gian, Stack, Queue; phân tích thừa số nguyên tố và đổi hệ cơ số bằng Stack.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 5</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
+        </li>
+        <li data-dir="BTH6" data-files="01.cpp 02.cpp 03.cpp 04.cpp 05.cpp 06.cpp 07.cpp 08.cpp 09.cpp 10.cpp 11.cpp">
+          <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=bth6"><span class="small fw-semibold text-uppercase text-primary mb-2">Nạp chồng toán tử</span><h3 class="fs-5">Bài thực hành 6</h3><p class="small text-body-secondary flex-grow-1">Số phức, phân số, CTimeSpan, CTime, CDate, CString, đa thức, vector, ma trận, INTEGER và MYINT.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 11</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
+        </li>
+        <li data-dir="BTH7" data-files="06/06.cpp 06/README.md 06/Cow.wav 06/Goat.wav 06/Sheep.wav">
+          <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=bth7"><span class="small fw-semibold text-uppercase text-primary mb-2">Kế thừa và đa hình</span><h3 class="fs-5">Bài thực hành 7</h3><p class="small text-body-secondary flex-grow-1">Nông trại bò, cừu, dê phát ra tiếng kêu thật: áp dụng kế thừa và hàm ảo.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 1</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
+        </li>
+        <li data-dir="Final-Exam" data-files="20521008.cpp">
+          <a class="lab-card d-flex flex-column h-100 p-4 border rounded-4 text-body text-decoration-none" href="?lab=final-exam"><span class="small fw-semibold text-uppercase text-primary mb-2">Kế thừa và đa hình</span><h3 class="fs-5">Thi thực hành cuối kỳ</h3><p class="small text-body-secondary flex-grow-1">Quản lý chung cư Vinhomes và Bcons: kế thừa, đa hình, gửi thông báo và tính tiền thuê phòng.</p><span class="d-flex align-items-center gap-2 small fw-semibold text-primary"><span class="d-inline-flex align-items-center gap-1"><span class="material-symbols-rounded" aria-hidden="true">code</span><span class="visually-hidden">Số lời giải:</span> 1</span><span class="material-symbols-rounded ms-auto" aria-hidden="true">arrow_forward</span></span></a>
+        </li>
+      </ol>
+    </section>
+
+    <section class="py-5 border-top" aria-labelledby="huong-dan">
+      <!-- Desktop: heading + section index on the left (sticky), guide text on the right. -->
+      <div class="row">
+      <div class="col-lg-4">
+        <div class="guide-side">
+          <h2 class="fs-3 mb-3" id="huong-dan">Hướng dẫn học</h2>
+          <nav aria-label="Mục lục hướng dẫn"><ul class="nav flex-column border-start guide-toc" id="guide-toc"></ul></nav>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="prose guide" id="guide" aria-busy="true">
+          <noscript><p>Bật JavaScript để xem hướng dẫn, hoặc đọc <a href="https://github.com/phanxuanquang/Object-Oriented-Programming-UIT/blob/main/materials/GUIDE.md">GUIDE.md trên GitHub</a>.</p></noscript>
+        </div>
+      </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- Lab view, filled by app.js when the URL has ?lab=... -->
+<div class="container-xl lab-view" hidden>
+  <div class="row">
+    <aside class="col-lg-3">
+      <div class="offcanvas-lg offcanvas-start sidebar pt-lg-4" tabindex="-1" id="sidebar" aria-labelledby="sidebar-title">
+        <div class="offcanvas-header">
+          <h2 class="offcanvas-title h6" id="sidebar-title">Bài thực hành</h2>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Đóng"></button>
+        </div>
+        <nav class="offcanvas-body" aria-label="Danh sách bài thực hành"><ul class="nav nav-pills flex-column w-100" id="lab-nav"></ul></nav>
+      </div>
+    </aside>
+    <main class="col-lg-9 content pt-4 pb-5" id="lab-main"></main>
+  </div>
+</div>
+
+<footer class="py-4 border-top small text-body-secondary">
+  <div class="container-xl">
+    <p class="mb-0">© Phan Xuân Quang · Bài làm chỉ mang tính chất tham khảo</p>
+  </div>
+</footer>
+<div class="visually-hidden" role="status" id="status"></div>
+</body>
+</html>
